@@ -1,0 +1,13 @@
+//////Game Project//////
+
+Name - Webcrush
+Type - Topdown exploration
+Brief description - The player will move through the level and have to find gems which are scattered around.
+Each gem will award the player one point (subject to change)
+The player will need to collect a certain amount of points before a timer runs out.
+If they do they win, if they don't they lose.
+The gems will be randomly placed around the level.
+The level will also be procedurally generated
+Powerups will also be available (e.g. to boost player speed or increase time etc.)
+
+What will I need - I will need the following: > A variable to keep track of the players score and the time > A function to add to the players score when a gem is collected > A function to check if score or time is reached - this needs to be checked regularly > A function or method to generate the levels on the screen > Allow for key press inputs which control the character > The character will be a HTML element which will move while key is pressed - On mobile a key pad is needed as there is no keyboard > They will also need to inherit stats (e.g. move speed) from an object >Gems will also be HTMl elements that will be destroyed on collision - May be difficult
