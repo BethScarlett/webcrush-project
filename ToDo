@@ -11,3 +11,44 @@ The level will also be procedurally generated
 Powerups will also be available (e.g. to boost player speed or increase time etc.)
 
 What will I need - I will need the following: > A variable to keep track of the players score and the time > A function to add to the players score when a gem is collected > A function to check if score or time is reached - this needs to be checked regularly > A function or method to generate the levels on the screen > Allow for key press inputs which control the character > The character will be a HTML element which will move while key is pressed - On mobile a key pad is needed as there is no keyboard > They will also need to inherit stats (e.g. move speed) from an object >Gems will also be HTMl elements that will be destroyed on collision - May be difficult
+
+/////To be completed/////
+
+- The player needs to be able to move
+  - They should move when an arrow is clicked
+  - They should only be able to move within a specific field
+- Create a player object which will store their score and speed
+- Wall blocks should spawn in the level on start
+  - The player should be able to go outside of these
+  - The blocks should spawn in a set way to start
+    - This needs to be changed eventually to allow for random spawns
+    - In this scenario the player should spawn after the walls, and only on a tile with no walls
+- When the player runs into a gem the score needs to increment
+  - The gem must also be destroyed (will attempt .innerhtml = "")
+  - The score needs to be displayed on screen, and increment every time the above happens
+- A timer needs to be kept, which will count down from x
+  - The timer should count down correctly, and show on the screen
+- When the timer is reached or the player collects enough gems/score the should end
+  - Need a function that is running every x milliseconds/frame to keep checking the player score and time
+  - From here if either condition is reached, an endgame function should run
+    - This function should prevent further movement from the arrows and display a results screen
+- The game needs to be able to start
+  - Movement should be locked until something is pressed to start the game
+  - The timer should not count down while game is not running
+- Powerups should be scattered around which can be picked up
+  - Similar to the gems, they should be destroyed on pickup
+  - When they are collected they should increment either the players speed, or add time to the timer.
+
+//Optional work if time alllows//
+
+- Music should play while the game is running
+  - The music should be toggleable
+  - A different sound should play if the player wins or loses
+- The walls should spawn randomly
+  - The walls should choose a space to spawn before the player or gems
+
+//////////////////Bug report//////////////////
+
+Current Bugs:
+
+Fixed Bugs:

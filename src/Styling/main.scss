@@ -1,0 +1,20 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: aqua;
+}
+
+.game-display {
+  height: 500px;
+  border: 2px solid black;
+}
+
+.game-display__player {
+  position: relative;
+  left: 50px;
+  top: 50px;
+}
