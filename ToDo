@@ -15,7 +15,6 @@ What will I need - I will need the following: > A variable to keep track of the 
 /////To be completed/////
 
 - The player needs to be able to move
-  - They should move when an arrow is clicked
   - They should only be able to move within a specific field
 - Create a player object which will store their score and speed
 - Wall blocks should spawn in the level on start
@@ -52,3 +51,6 @@ What will I need - I will need the following: > A variable to keep track of the 
 Current Bugs:
 
 Fixed Bugs:
+
+Bug - Clicking on an arrow and moving mouse away before letting go will keep moving the player
+Fix - Added mouse out event listener to each arrow which also runs the handlePlayerStop function
