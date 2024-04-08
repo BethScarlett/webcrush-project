@@ -70,7 +70,13 @@ const handlePlayerStop = () => {
 
 //Add event listerners onto each arrow
 arrowButton.forEach((arrow) => {
+  //Adding listeners for mouse clicks
   arrow.addEventListener("mousedown", handlePlayerMove);
   arrow.addEventListener("mouseup", handlePlayerStop);
   arrow.addEventListener("mouseout", handlePlayerStop);
+
+  //Adding listeners for touch presses
+  arrow.addEventListener("touchstart", handlePlayerMove);
+  arrow.addEventListener("touchend", handlePlayerStop);
+  arrow.addEventListener("touchmove", handlePlayerStop);
 });
