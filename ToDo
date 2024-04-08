@@ -14,14 +14,6 @@ What will I need - I will need the following: > A variable to keep track of the 
 
 /////To be completed/////
 
-- The player needs to be able to move
-  - They should only be able to move within a specific field
-- Create a player object which will store their score and speed
-- Wall blocks should spawn in the level on start
-  - The player should be able to go outside of these
-  - The blocks should spawn in a set way to start
-    - This needs to be changed eventually to allow for random spawns
-    - In this scenario the player should spawn after the walls, and only on a tile with no walls
 - When the player runs into a gem the score needs to increment
   - The gem must also be destroyed (will attempt .innerhtml = "")
   - The score needs to be displayed on screen, and increment every time the above happens
@@ -31,6 +23,12 @@ What will I need - I will need the following: > A variable to keep track of the 
   - Need a function that is running every x milliseconds/frame to keep checking the player score and time
   - From here if either condition is reached, an endgame function should run
     - This function should prevent further movement from the arrows and display a results screen
+- Create a player object which will store their score and speed
+- Wall blocks should spawn in the level on start
+  - The player should be able to go outside of these
+  - The blocks should spawn in a set way to start
+    - This needs to be changed eventually to allow for random spawns
+    - In this scenario the player should spawn after the walls, and only on a tile with no walls
 - The game needs to be able to start
   - Movement should be locked until something is pressed to start the game
   - The timer should not count down while game is not running
@@ -52,5 +50,9 @@ Current Bugs:
 
 Fixed Bugs:
 
+(Movement Bugs)
 Bug - Clicking on an arrow and moving mouse away before letting go will keep moving the player
 Fix - Added mouse out event listener to each arrow which also runs the handlePlayerStop function
+
+Bug - Holding an arrow while the player is at a wall causes the vertical/horizontal values to still increase/decrease
+Fix - Used an if statement to prevent value increase outside of allowed ranges

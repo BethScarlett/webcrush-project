@@ -1,17 +1,15 @@
 import "./Styling/main.scss";
 
+//Grab player, display and movement arrows from HTML
 const player = document.querySelector<HTMLImageElement>(
   ".game-display__player"
 );
 const gameDisplay = document.querySelector<HTMLDivElement>(".game-display");
 const arrowButton = document.querySelectorAll(".game-controls__arrows--arrow");
 
-if (!arrowButton || !gameDisplay) {
-  throw new Error("Error with arrows");
-}
-
-if (!player) {
-  throw new Error("Error with player");
+//Null Exceptions for above query selectors
+if (!arrowButton || !gameDisplay || !player) {
+  throw new Error("Issue with selectors");
 }
 
 //TODO - Use on load to set game up and setInterval to keep track of score
@@ -19,51 +17,58 @@ window.onload = function () {
   setInterval(function () {});
 };
 
+//Set variables required for player movement
 let horizontalMovement: number = Number(player.style.left);
 let verticalMovement: number = Number(player.style.top);
 let moveCounter: number;
 
+//Increment player movement based on arrow clicked
 const handlePlayerMove = (event: Event) => {
+  //Get the arrow clicked and cast it to pull out id
   const getArrow = event.target as HTMLImageElement;
   const getId = getArrow.id;
 
-  gameDisplay.style.backgroundColor = "green";
-
+  //Use set interval to run switch statement, which is based on arrow id, every x seconds and increment player position
   moveCounter = setInterval(() => {
     switch (getId) {
       case "up": {
-        verticalMovement = verticalMovement - 30;
-        let vertical: string = `${verticalMovement.toString()}px`;
-        player.style.top = `${vertical}`;
+        if (verticalMovement > 0) {
+          verticalMovement = verticalMovement - 30;
+        }
         break;
       }
       case "down": {
-        verticalMovement = verticalMovement + 30;
-        let vertical: string = `${verticalMovement.toString()}px`;
-        player.style.top = `${vertical}`;
+        if (verticalMovement < 500) {
+          verticalMovement = verticalMovement + 30;
+        }
         break;
       }
       case "left": {
-        horizontalMovement = horizontalMovement - 30;
-        let horizontal: string = `${horizontalMovement.toString()}px`;
-        player.style.left = `${horizontal}`;
+        if (horizontalMovement > 0) {
+          horizontalMovement = horizontalMovement - 30;
+        }
         break;
       }
       case "right": {
-        horizontalMovement = horizontalMovement + 30;
-        let horizontal: string = `${horizontalMovement.toString()}px`;
-        console.log(horizontal);
-        player.style.left = `${horizontal}`;
+        if (horizontalMovement < screen.width) {
+          horizontalMovement = horizontalMovement + 30;
+        }
         break;
       }
     }
-  }, 200);
+    let vertical: string = `${verticalMovement.toString()}px`;
+    player.style.top = `${vertical}`;
+    let horizontal: string = `${horizontalMovement.toString()}px`;
+    player.style.left = `${horizontal}`;
+  }, 50);
 };
 
+//Clear moveCounter to stop player from moving when arrow is released
 const handlePlayerStop = () => {
   clearInterval(moveCounter);
 };
 
+//Add event listerners onto each arrow
 arrowButton.forEach((arrow) => {
   arrow.addEventListener("mousedown", handlePlayerMove);
   arrow.addEventListener("mouseup", handlePlayerStop);

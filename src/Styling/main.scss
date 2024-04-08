@@ -7,18 +7,18 @@
 }
 
 body {
-  background-color: aqua;
+  background-color: $page-background;
 }
 
 .game-display {
   height: 500px;
-  border: 2px solid black;
-}
+  border: 2px solid $display-border;
 
-.game-display__player {
-  position: relative;
-  left: 0px;
-  top: 0px;
+  &__player {
+    position: sticky;
+    left: 0px;
+    top: 0px;
+  }
 }
 
 .game-controls__arrows {
