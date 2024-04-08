@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -9,5 +9,47 @@
   <body>
     <div id="app"></div>
     <script type="module" src="/src/main.ts"></script>
+    <!-- Potentially may need another div to contain everything -->
+    <div class="game-display">
+      <div>
+        <p>Score:</p>
+        <p>Time Remaining:</p>
+      </div>
+      <!-- TODO: Move player spawn into typescript and create using .innerHTML -->
+      <img
+        src="./src/Images/player-placeholder.png"
+        alt="player character"
+        class="game-display__player"
+      />
+    </div>
+    <div class="game-controls">
+      <div class="game-controls__arrows">
+        <img
+          src="./src/Images/arrow-placeholder.png"
+          alt=""
+          class="game-controls__arrows--arrow"
+          id="up"
+        />
+        <img
+          src="./src/Images/arrow-placeholder.png"
+          alt=""
+          class="game-controls__arrows--arrow"
+          id="down"
+        />
+        <img
+          src="./src/Images/arrow-placeholder.png"
+          alt=""
+          class="game-controls__arrows--arrow"
+          id="left"
+        />
+        <img
+          src="./src/Images/arrow-placeholder.png"
+          alt=""
+          class="game-controls__arrows--arrow"
+          id="right"
+        />
+      </div>
+      <img src="" alt="" />
+    </div>
   </body>
 </html>
