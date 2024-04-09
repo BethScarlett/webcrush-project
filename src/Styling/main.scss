@@ -11,13 +11,34 @@ body {
 }
 
 .game-display {
+  display: flex;
   height: 500px;
   border: 2px solid $display-border;
 
   &__player {
     position: sticky;
+    height: 200px;
+    width: 200px;
     left: 0px;
     top: 0px;
+  }
+
+  &__gem {
+    height: 200px;
+    width: auto;
+    border: 2px solid $display-border;
+  }
+
+  #gem1 {
+    position: absolute;
+    margin-left: 500px;
+    border: 3px solid green;
+  }
+  #gem2 {
+    position: absolute;
+    margin-top: 300px;
+    margin-left: 300px;
+    border: 3px solid purple;
   }
 }
 

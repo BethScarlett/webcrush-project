@@ -48,11 +48,12 @@ What will I need - I will need the following: > A variable to keep track of the 
 
 Current Bugs:
 
+Bug #3 - The gem offsets the top of the player by around 120-150px, and stops them moving above it. The top value still increments over however
 Fixed Bugs:
 
 (Movement Bugs)
-Bug - Clicking on an arrow and moving mouse away before letting go will keep moving the player
+Bug #1 - Clicking on an arrow and moving mouse away before letting go will keep moving the player
 Fix - Added mouse out event listener to each arrow which also runs the handlePlayerStop function
 
-Bug - Holding an arrow while the player is at a wall causes the vertical/horizontal values to still increase/decrease
+Bug #2 - Holding an arrow while the player is at a wall causes the vertical/horizontal values to still increase/decrease
 Fix - Used an if statement to prevent value increase outside of allowed ranges
