@@ -9,26 +9,35 @@ const gems = document.querySelectorAll<HTMLImageElement>(".game-display__gem");
 const gameDisplay = document.querySelector<HTMLDivElement>(".game-display");
 const arrowButton = document.querySelectorAll(".game-controls__arrows--arrow");
 
+//Grab score and timer from HTML
+const scoreDisplay = document.querySelector(".game-display__objectives--score");
+const timeDisplay = document.querySelector(".game-display__objectives--time");
+
 //Null Exceptions for above query selectors
-if (!arrowButton || !gameDisplay || !player || !gems) {
+if (
+  !arrowButton ||
+  !gameDisplay ||
+  !player ||
+  !gems ||
+  !scoreDisplay ||
+  !timeDisplay
+) {
   throw new Error("Issue with selectors");
 }
-
-//TODO - Use on load to set game up and setInterval to keep track of score
-// window.onload = function () {
-//   setInterval(function () {});
-// };
 
 //Set variables required for player movement
 let horizontalMovement: number = Number(player.style.left);
 let verticalMovement: number = Number(player.style.top);
 let moveCounter: number;
 
+//Set variables required for time
+let timeLeft: number = 60;
+
 //Function to check game state every 50ms
 setInterval(() => {
   checkCollision();
   checkGameEndConditions();
-}, 5000);
+}, 5000); //TODO - Set timer to 50ms
 
 //Functions to be checked every 50ms
 const checkCollision = () => {
@@ -42,18 +51,31 @@ const checkCollision = () => {
   gems.forEach((gem) => {
     const gemPosition: number[] = [gem.x + gem.width, gem.y + gem.height];
     if (
+      //Check if player and gem are colliding on x and y axis
       player.x < gemPosition[0] &&
       playerPosition[0] > gem.x &&
       player.y < gemPosition[1] &&
       playerPosition[1] > gem.y
     ) {
+      //Remove collided with gem and increment score
       gem.remove();
       gem.width = 0;
       gem.height = 0;
       playerOne.score += 1;
+      scoreDisplay.innerHTML = `Score: ${playerOne.score}`;
     }
   });
   console.log("Player score = " + playerOne.score);
+};
+
+const updateTime = () => {
+  setInterval(() => {
+    if (timeLeft > 0) {
+      timeLeft -= 1;
+      timeDisplay.innerHTML = `Time Remaining: ${timeLeft}`;
+      console.log(timeLeft);
+    }
+  }, 1000);
 };
 
 const checkGameEndConditions = () => {
@@ -112,7 +134,8 @@ const handlePlayerStop = () => {
   clearInterval(moveCounter);
 };
 
-//Add event listerners onto each arrow
+//Add event listerners
+//Add listeners onto each arrow
 arrowButton.forEach((arrow) => {
   //Adding listeners for mouse clicks
   arrow.addEventListener("mousedown", handlePlayerMove);
@@ -124,3 +147,6 @@ arrowButton.forEach((arrow) => {
   arrow.addEventListener("touchend", handlePlayerStop);
   arrow.addEventListener("touchmove", handlePlayerStop);
 });
+
+//Add listener to document
+document.addEventListener("DOMContentLoaded", updateTime);

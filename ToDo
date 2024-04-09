@@ -14,11 +14,6 @@ What will I need - I will need the following: > A variable to keep track of the 
 
 /////To be completed/////
 
-- When the player runs into a gem the score needs to increment
-  - The gem must also be destroyed (will attempt .innerhtml = "")
-  - The score needs to be displayed on screen, and increment every time the above happens
-- A timer needs to be kept, which will count down from x
-  - The timer should count down correctly, and show on the screen
 - When the timer is reached or the player collects enough gems/score the should end
   - Need a function that is running every x milliseconds/frame to keep checking the player score and time
   - From here if either condition is reached, an endgame function should run
@@ -48,7 +43,6 @@ What will I need - I will need the following: > A variable to keep track of the 
 
 Current Bugs:
 
-Bug #3 - The gem offsets the top of the player by around 120-150px, and stops them moving above it. The top value still increments over however
 Fixed Bugs:
 
 (Movement Bugs)
@@ -57,3 +51,6 @@ Fix - Added mouse out event listener to each arrow which also runs the handlePla
 
 Bug #2 - Holding an arrow while the player is at a wall causes the vertical/horizontal values to still increase/decrease
 Fix - Used an if statement to prevent value increase outside of allowed ranges
+
+Bug #3 - The gem offsets the top of the player by around 120-150px, and stops them moving above it. The top value still increments over however
+Fix - Display issue. Fixed by setting display properties
