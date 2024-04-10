@@ -1,26 +1,33 @@
 import "./Styling/main.scss";
 import playerOne from "./Types & Objects/objects";
 
+/////////Set up elements for DOM manipulation//////////
 //Grab player, display, gem and movement arrows from HTML
 const player = document.querySelector<HTMLImageElement>(
   ".game-display__player"
 );
 const gems = document.querySelectorAll<HTMLImageElement>(".game-display__gem");
 const gameDisplay = document.querySelector<HTMLDivElement>(".game-display");
+const gameControls = document.querySelector(".game-controls"); //TODO - Pull all elements from game controls, slice to separate arrows & buttons then work from there
 const arrowButton = document.querySelectorAll(".game-controls__arrows--arrow");
+const restartButton = document.querySelector<HTMLButtonElement>(
+  ".game-controls__restart-button"
+);
 
 //Grab score and timer from HTML
 const scoreDisplay = document.querySelector(".game-display__objectives--score");
 const timeDisplay = document.querySelector(".game-display__objectives--time");
 
-//Null Exceptions for above query selectors
+//Null Exceptions for above query selectors //TODO - Split out for better error detection
 if (
   !arrowButton ||
   !gameDisplay ||
   !player ||
   !gems ||
   !scoreDisplay ||
-  !timeDisplay
+  !timeDisplay ||
+  !restartButton ||
+  !gameControls
 ) {
   throw new Error("Issue with selectors");
 }
@@ -32,14 +39,25 @@ let moveCounter: number;
 
 //Set variables required for time
 let timeLeft: number = 60;
+let timeCounter: number;
 
-//Function to check game state every 50ms
-setInterval(() => {
-  checkCollision();
-  checkGameEndConditions();
-}, 5000); //TODO - Set timer to 50ms
+//Set variables required for game state
+let gameCounter: number;
 
-//Functions to be checked every 50ms
+//Desturcture playerOne object for easier variable access
+let { score, moveSpeed } = playerOne;
+
+//////////Game State Functions//////////
+//Check game state every 50ms
+const handleStartGame = () => {
+  gameCounter = setInterval(() => {
+    checkCollision();
+    checkGameEndConditions();
+    scoreDisplay.innerHTML = `Score: ${score}`;
+  }, 1000); //TODO - Set timer to 50ms
+};
+
+//Check for collision between player and gems
 const checkCollision = () => {
   //Gets the player position on x and y axis and add width + height respectively
   const playerPosition: number[] = [
@@ -61,15 +79,28 @@ const checkCollision = () => {
       gem.remove();
       gem.width = 0;
       gem.height = 0;
-      playerOne.score += 1;
-      scoreDisplay.innerHTML = `Score: ${playerOne.score}`;
+      score += 1;
     }
   });
   console.log("Player score = " + playerOne.score);
 };
 
+//Check if either game end conditions have been reached
+const checkGameEndConditions = () => {
+  //TODO - Set score threshold as variable and compare to that
+  if (playerOne.score == 2) {
+    //Check if the players score has hit the goal
+    handleEndGame("score");
+  } else if (timeLeft == 0) {
+    //Check if the time has elapsed
+    handleEndGame("time");
+  }
+};
+
+//Start timer and count down at a rate of 1 second per second
 const updateTime = () => {
-  setInterval(() => {
+  timeCounter = setInterval(() => {
+    //Only lower timer if time left is above 0
     if (timeLeft > 0) {
       timeLeft -= 1;
       timeDisplay.innerHTML = `Time Remaining: ${timeLeft}`;
@@ -78,16 +109,46 @@ const updateTime = () => {
   }, 1000);
 };
 
-const checkGameEndConditions = () => {
-  //Check if the players score has hit the goal
-  //Check if the time has elapsed
+//Show result and prevent further movement
+const handleEndGame = (condition: string) => {
+  if (condition === "time") {
+    console.log("Time up");
+  } else if (condition === "score") {
+    console.log("Score reached");
+  }
+
+  //Stop checking gamestate
+  clearInterval(gameCounter);
+
+  //Remove event listeners from arrows to stop movement //TODO - Look for better way of disabling movement
+  arrowButton.forEach((arrow) => {
+    arrow.removeEventListener("mousedown", handlePlayerMove);
+    arrow.removeEventListener("mouseup", handlePlayerStop);
+    arrow.removeEventListener("mouseout", handlePlayerStop);
+    arrow.removeEventListener("touchstart", handlePlayerMove);
+    arrow.removeEventListener("touchend", handlePlayerStop);
+    arrow.removeEventListener("touchmove", handlePlayerStop);
+  });
+
+  //Restore restart button to screen
+  restartButton.style.display = "block";
+  restartButton.innerText = "Restart Game";
 };
 
-//TODO - Remove below console logs from code (keeping incase needed)
-//Get position data for player and gem
-// console.log(player.getBoundingClientRect());
-// console.log(gem.getBoundingClientRect());
+//Restart game
+const handleGameRestart = () => {
+  score = 0;
+  timeLeft = 61;
+  restartButton.style.display = "none";
+  clearInterval(timeCounter);
+  handleStartGame();
+  updateTime();
+  handleAddEventListeners();
 
+  console.log(moveSpeed);
+};
+
+//////////Player Movement Functions//////////
 //Increment player movement based on arrow clicked
 const handlePlayerMove = (event: Event) => {
   //Get the arrow clicked and cast it to pull out id
@@ -134,19 +195,24 @@ const handlePlayerStop = () => {
   clearInterval(moveCounter);
 };
 
+//////////Event Listeners//////////
+const handleAddEventListeners = () => {
+  //Add event listeners onto each arrow
+  arrowButton.forEach((arrow) => {
+    //Adding listeners for mouse clicks
+    arrow.addEventListener("mousedown", handlePlayerMove);
+    arrow.addEventListener("mouseup", handlePlayerStop);
+    arrow.addEventListener("mouseout", handlePlayerStop);
+
+    //Adding listeners for touch presses (Used for mobile)
+    arrow.addEventListener("touchstart", handlePlayerMove);
+    arrow.addEventListener("touchend", handlePlayerStop);
+    arrow.addEventListener("touchmove", handlePlayerStop);
+  });
+};
+
 //Add event listerners
-//Add listeners onto each arrow
-arrowButton.forEach((arrow) => {
-  //Adding listeners for mouse clicks
-  arrow.addEventListener("mousedown", handlePlayerMove);
-  arrow.addEventListener("mouseup", handlePlayerStop);
-  arrow.addEventListener("mouseout", handlePlayerStop);
-
-  //Adding listeners for touch presses
-  arrow.addEventListener("touchstart", handlePlayerMove);
-  arrow.addEventListener("touchend", handlePlayerStop);
-  arrow.addEventListener("touchmove", handlePlayerStop);
-});
-
+//Add listener to start/restart buttons
+restartButton.addEventListener("click", handleGameRestart);
 //Add listener to document
-document.addEventListener("DOMContentLoaded", updateTime);
+//document.addEventListener("DOMContentLoaded", updateTime);
