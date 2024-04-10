@@ -10,6 +10,12 @@
     <div id="app"></div>
     <script type="module" src="/src/main.ts"></script>
     <div class="game-display">
+      <div class="game-display__information">
+        <h1 class="game-display__information--title">Welcome to Minecrush 2</h1>
+        <button class="game-display__information--restart-button">
+          Start Game
+        </button>
+      </div>
       <div class="game-display__objectives">
         <p class="game-display__objectives--score">Score: 0</p>
         <p class="game-display__objectives--time">Time Remaining: 60</p>
@@ -59,7 +65,6 @@
           class="game-controls__arrows--arrow"
           id="right"
         />
-        <button class="game-controls__restart-button">Start Game</button>
       </div>
     </div>
   </body>
