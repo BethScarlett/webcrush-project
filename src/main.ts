@@ -187,7 +187,7 @@ const handleSpawnGems = (count: number) => {
     console.log(randNum1);
 
     let gem = document.createElement("img");
-    gem.src = "./src/Images/gem-placeholder.png";
+    gem.src = "src/Images/gem-placeholder.png";
     gem.alt = "gem";
     gem.className = "game-display__gem";
     gem.id = "gem1";
