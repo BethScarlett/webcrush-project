@@ -6,9 +6,13 @@ import playerOne from "./Types & Objects/objects";
 const player = document.querySelector<HTMLImageElement>(
   ".game-display__player"
 );
-const gems = document.querySelectorAll<HTMLImageElement>(".game-display__gem");
-const scoreDisplay = document.querySelector(".game-display__objectives--score");
-const timeDisplay = document.querySelector(".game-display__objectives--time");
+let gems = document.querySelectorAll<HTMLImageElement>(".game-display__gem");
+const scoreDisplay = document.querySelector<HTMLParagraphElement>(
+  ".game-display__objectives--score"
+);
+const timeDisplay = document.querySelector<HTMLParagraphElement>(
+  ".game-display__objectives--time"
+);
 const gameplayArea = document.querySelector<HTMLDivElement>(".game-display");
 const resultsDisplay = document.querySelector<HTMLHeadingElement>(
   ".game-display__information--title"
@@ -46,7 +50,7 @@ let verticalMovement: number = Number(player.style.top);
 let moveCounter: number;
 
 //Set variable requires for score
-let scoreTarget: number = 2;
+let scoreTarget: number = 4;
 
 //Set variables required for time
 let timeLeft: number = 60;
@@ -77,6 +81,7 @@ const updateTime = () => {
     if (timeLeft > 0) {
       timeLeft -= 1;
       timeDisplay.innerHTML = `Time Remaining: ${timeLeft}`;
+      console.log(timeLeft);
     }
   }, 1000);
   console.log("Time counter: " + timeCounter);
@@ -128,9 +133,10 @@ const handleEndGame = (condition: string) => {
     resultsDisplay.innerText = "You Lose";
   }
 
-  //Stop checking gamestate & updating time
+  //Clear intervals for gamestate, time and playermovement
   clearInterval(gameCounter);
   clearInterval(timeCounter);
+  clearInterval(moveCounter);
 
   //Remove event listeners from arrows to stop movement
   arrowButtons.forEach((arrow) => {
@@ -153,8 +159,34 @@ const handleRestartGame = () => {
   timeLeft = 61;
   resultsDisplay.style.display = "none";
   startButton.style.display = "none";
+  player.style.top = "0";
+  player.style.left = "0";
+  horizontalMovement = 0;
+  verticalMovement = 0;
   handleAddEventListeners();
+  handleSpawnGems(3);
   console.log(moveSpeed);
+};
+
+const handleSpawnGems = (count: number) => {
+  for (let i: number = 0; i < count; i++) {
+    const randNum1: number = Math.floor(
+      Math.random() * (screen.width - 50) + 0
+    );
+    const randNum2: number = Math.floor(Math.random() * (300 - 0) + 0);
+    console.log(randNum1);
+
+    let gem = document.createElement("img");
+    gem.src = "./src/Images/gem-placeholder.png";
+    gem.alt = "gem";
+    gem.className = "game-display__gem";
+    gem.id = "gem1";
+    gem.style.left = `${randNum1}px`;
+    gem.style.top = `${randNum2}px`;
+    gameplayArea.append(gem);
+    //gameplayArea.innerHTML += `<img src=./src/Images/gem-placeholder.png alt=gem class=game-display__gem id=gem1 />`;
+  }
+  gems = document.querySelectorAll(".game-display__gem");
 };
 
 //////////Player Movement Functions//////////
