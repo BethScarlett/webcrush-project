@@ -194,7 +194,6 @@ const handleSpawnGems = (count: number) => {
     gem.style.left = `${randNum1}px`;
     gem.style.top = `${randNum2}px`;
     gameplayArea.append(gem);
-    //gameplayArea.innerHTML += `<img src=./src/Images/gem-placeholder.png alt=gem class=game-display__gem id=gem1 />`;
   }
   gems = document.querySelectorAll(".game-display__gem");
 };
