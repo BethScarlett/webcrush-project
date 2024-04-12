@@ -2,6 +2,10 @@ import "./Styling/main.scss";
 import playerOne from "./Types & Objects/objects";
 
 /////////Set up elements for DOM manipulation//////////
+//Grab power display elements
+const powerIndicator =
+  document.querySelector<HTMLDivElement>(".game-power__light");
+
 //Grab game display elements from HTML
 const player = document.querySelector<HTMLImageElement>(
   ".game-display__player"
@@ -24,6 +28,11 @@ const startButton = document.querySelector<HTMLButtonElement>(
 //Grab game control elements from HTML
 const gameControls = document.querySelector(".game-controls"); //TODO - Pull all elements from game controls, slice to separate arrows & buttons then work from there
 const arrowButtons = document.querySelectorAll(".game-controls__arrows--arrow");
+
+//Null Exceptions for power display elements
+if (!powerIndicator) {
+  throw new Error("Error with power display");
+}
 
 //Null Exceptions for game display elements
 if (
@@ -157,6 +166,7 @@ const handleEndGame = (condition: string) => {
 const handleRestartGame = () => {
   score = 0;
   timeLeft = 61;
+  powerIndicator.style.backgroundColor = "#02FF62";
   resultsDisplay.style.display = "none";
   startButton.style.display = "none";
   player.style.top = "0";
