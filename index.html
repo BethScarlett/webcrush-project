@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vite + TS</title>
+    <script type="module" crossorigin src="./assets/index-Dn8bmiB3.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-BysOu3oa.css">
+  </head>
+  <body>
+    <div id="app"></div>
+    <div class="game-power">
+      <p class="game-power__title">Power</p>
+      <div class="game-power__light"></div>
+    </div>
+    <div class="game-display">
+      <div class="game-display__information">
+        <h1 class="game-display__information--title">Welcome to Minecrush 2</h1>
+        <button class="game-display__information--restart-button">
+          Start Game
+        </button>
+      </div>
+      <div class="game-display__objectives">
+        <p class="game-display__objectives--score">Score: 0</p>
+        <p class="game-display__objectives--time">Time Remaining: 60</p>
+      </div>
+      <img
+        src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAABsCAIAAACzYCrFAAABhGlDQ1BJQ0MgcHJvZmlsZQAAKJF9kT1Iw0AcxV/TFkWqDnYQcchQnayDijiWKhbBQmkrtOpgcukXNGlIUlwcBdeCgx+LVQcXZ10dXAVB8APE2cFJ0UVK/F9SaBHjwXE/3t173L0DhGaVqWYgBqiaZaQTcTGXXxV7XhFAEAOIYFJipp7MLGbhOb7u4ePrXZRneZ/7c/QrBZMBPpE4xnTDIt4gnt20dM77xGFWlhTic+IJgy5I/Mh12eU3ziWHBZ4ZNrLpeeIwsVjqYrmLWdlQiWeII4qqUb6Qc1nhvMVZrdZZ+578haGCtpLhOs1RJLCEJFIQIaOOCqqwEKVVI8VEmvbjHv4Rx58il0yuChg5FlCDCsnxg//B727N4vSUmxSKA8EX2/4YA3p2gVbDtr+Pbbt1AvifgSut4681gblP0hsdLXIEDG4DF9cdTd4DLneA4SddMiRH8tMUikXg/Yy+KQ8M3QJ9a25v7X2cPgBZ6mr5Bjg4BMZLlL3u8e7e7t7+PdPu7wfDv3LHzus/0AAAAAlwSFlzAAAuIwAALiMBeKU/dgAAAAd0SU1FB+gEBQ4mFCcHH+4AAAAZdEVYdENvbW1lbnQAQ3JlYXRlZCB3aXRoIEdJTVBXgQ4XAAAA1UlEQVR42u3SQREAAAQAQQTRP4xQOhjP3Qg3l9MdcFUSYCAMhIEwEBgIA2EgDAQGwkAYCAOBgTAQBsJAYCAMhIEwEAYCA2EgDISBwEAYCANhIDAQBsJAGAgMhIEwEAbCQGAgDISBMBAYCANhIAwEBsJAGAgDgYEwEAbCQGAgDISBMBAGAgNhIAyEgcBAGAgDYSAwEAbCQBgIDISBMBAGwkBgIAyEgTAQGAgDYSAMBAbCQBgIA4GBMBAGwkAYCAyEgTAQBgIDYSAMhIHAQBgIA2EgMBCfFr+4AeDHtZ/VAAAAAElFTkSuQmCC"
+        alt="player character"
+        class="game-display__player"
+      />
+    </div>
+    <div class="game-controls">
+      <div class="game-controls__arrows">
+        <img
+          src="./assets/keypad-C49XNdzI.png"
+          alt="keypad"
+          class="game-controls__arrows--keypad"
+        />
+        <img
+          src="data:image/png;base64,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"
+          alt=""
+          class="game-controls__arrows--arrow"
+          id="up"
+        />
+        <img
+          src="data:image/png;base64,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"
+          alt=""
+          class="game-controls__arrows--arrow"
+          id="down"
+        />
+        <img
+          src="data:image/png;base64,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"
+          alt=""
+          class="game-controls__arrows--arrow"
+          id="left"
+        />
+        <img
+          src="data:image/png;base64,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"
+          alt=""
+          class="game-controls__arrows--arrow"
+          id="right"
+        />
+      </div>
+    </div>
+  </body>
+</html>
