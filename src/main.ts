@@ -3,8 +3,11 @@ import playerOne from "./Types & Objects/objects";
 
 /////////Set up elements for DOM manipulation//////////
 //Grab power display elements
-const powerIndicator =
+const powerIndicatorTop =
   document.querySelector<HTMLDivElement>(".game-power__light");
+const powerIndicatorBottom = document.querySelector<HTMLDivElement>(
+  ".game-controls__tv--light"
+);
 
 //Grab game display elements from HTML
 const player = document.querySelector<HTMLImageElement>(
@@ -30,7 +33,7 @@ const gameControls = document.querySelector(".game-controls"); //TODO - Pull all
 const arrowButtons = document.querySelectorAll(".game-controls__arrows--arrow");
 
 //Null Exceptions for power display elements
-if (!powerIndicator) {
+if (!powerIndicatorTop || !powerIndicatorBottom) {
   throw new Error("Error with power display");
 }
 
@@ -166,7 +169,8 @@ const handleEndGame = (condition: string) => {
 const handleRestartGame = () => {
   score = 0;
   timeLeft = 61;
-  powerIndicator.style.backgroundColor = "#02FF62";
+  powerIndicatorTop.style.backgroundColor = "#02FF62";
+  powerIndicatorBottom.style.backgroundColor = "#ffffff";
   resultsDisplay.style.display = "none";
   startButton.style.display = "none";
   player.style.top = "0";
