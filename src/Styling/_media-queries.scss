@@ -100,6 +100,8 @@
 
   .game-footer {
     margin-top: 30px;
-    transition: margin-top 0.5s;
+    transition: all 0.5s;
+    font-size: 30px;
+    color: $footer-font-colour;
   }
 }

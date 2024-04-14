@@ -62,7 +62,7 @@ let verticalMovement: number;
 let moveCounter: number;
 
 //Set variable required for score
-let scoreTarget: number = 10;
+let scoreTarget: number = 15;
 
 //Set variables required for time
 let timeLeft: number = 60;
@@ -194,20 +194,25 @@ const handleRestartGame = () => {
   //Reset Score and Time
   score = 0;
   timeLeft = 60;
+
   //Set power indicators to be on
   powerIndicatorTop.style.backgroundColor = "#02FF62";
   powerIndicatorBottom.style.backgroundColor = "#ffffff";
+
   //Remove results display and star/restart button
   resultsDisplay.style.display = "none";
   startButton.style.display = "none";
+
   //Reset player position
   player.style.top = "0";
   player.style.left = "0";
   horizontalMovement = 0;
   verticalMovement = 0;
+
   //Add event listeners to arrows
   handleAddEventListeners();
-  //Remove any exising gems and begin spawning new ones
+
+  //Remove any exising gems, adjust score and begin spawning new ones
   document.querySelectorAll(".game-display__gem").forEach((gem) => {
     gem.remove();
     score -= 1;
@@ -239,17 +244,27 @@ const handlePlayerMove = (event: Event) => {
       }
       case "left": {
         if (horizontalMovement > 0) {
-          horizontalMovement = horizontalMovement - 30;
+          horizontalMovement = horizontalMovement - screen.width / 20;
+        }
+        if (horizontalMovement > screen.width) {
+          horizontalMovement = screen.width;
         }
         break;
       }
       case "right": {
-        if (horizontalMovement < screen.width) {
-          horizontalMovement = horizontalMovement + 30;
+        if (horizontalMovement < screen.width / 4.95 + screen.width) {
+          horizontalMovement = horizontalMovement + screen.width / 20;
         }
         break;
       }
     }
+    console.log(
+      "Screen width = " +
+        screen.width +
+        ". Horizontal Movement = " +
+        horizontalMovement
+    );
+
     let vertical: string = `${verticalMovement.toString()}px`;
     player.style.top = `${vertical}`;
     let horizontal: string = `${horizontalMovement.toString()}px`;
@@ -280,4 +295,3 @@ const handleAddEventListeners = () => {
 
 //Add listener to start/restart button
 startButton.addEventListener("click", handleStartGame);
-//Add listener to document
