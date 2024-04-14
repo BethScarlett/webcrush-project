@@ -80,21 +80,9 @@ body {
   }
 
   &__gem {
-    height: 200px;
+    height: 50px;
     width: auto;
-    border: 2px solid $display-border;
-  }
-
-  #gem1 {
     position: absolute;
-    margin-left: 500px;
-    border: 3px solid green;
-  }
-  #gem2 {
-    position: absolute;
-    margin-top: 300px;
-    margin-left: 300px;
-    border: 3px solid purple;
   }
 }
 

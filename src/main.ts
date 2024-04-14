@@ -29,7 +29,7 @@ const startButton = document.querySelector<HTMLButtonElement>(
 );
 
 //Grab game control elements from HTML
-const gameControls = document.querySelector(".game-controls"); //TODO - Pull all elements from game controls, slice to separate arrows & buttons then work from there
+const gameControls = document.querySelector(".game-controls");
 const arrowButtons = document.querySelectorAll(".game-controls__arrows--arrow");
 
 //Null Exceptions for power display elements
@@ -57,12 +57,12 @@ if (!gameControls || !arrowButtons) {
 
 //////////Setting variables//////////
 //Set variables required for player movement
-let horizontalMovement: number = Number(player.style.left);
-let verticalMovement: number = Number(player.style.top);
+let horizontalMovement: number;
+let verticalMovement: number;
 let moveCounter: number;
 
-//Set variable requires for score
-let scoreTarget: number = 4;
+//Set variable required for score
+let scoreTarget: number = 10;
 
 //Set variables required for time
 let timeLeft: number = 60;
@@ -71,8 +71,11 @@ let timeCounter: number;
 //Set variables required for game state
 let gameCounter: number;
 
+//Set variables for gems
+let gemCounter: number;
+
 //Desturcture playerOne object for easier variable access
-let { score, moveSpeed } = playerOne;
+let { score } = playerOne;
 
 //////////Game State Functions//////////
 //Check game state every 50ms
@@ -97,6 +100,26 @@ const updateTime = () => {
     }
   }, 1000);
   console.log("Time counter: " + timeCounter);
+};
+
+//Spawn gems every 3 seconds
+const handleSpawnGems = () => {
+  gemCounter = setInterval(() => {
+    const randNum1: number = Math.floor(
+      Math.random() * (screen.width - 100) + 0
+    );
+    const randNum2: number = Math.floor(Math.random() * (400 - 0) + 45);
+
+    let gem = document.createElement("img");
+    gem.src = "src/Images/gem-placeholder.png";
+    gem.alt = "gem";
+    gem.className = "game-display__gem";
+    gem.id = "gem1";
+    gem.style.left = `${randNum1}px`;
+    gem.style.top = `${randNum2}px`;
+    gameplayArea.append(gem);
+    gems = document.querySelectorAll(".game-display__gem");
+  }, 3000);
 };
 
 //Check for collision between player and gems
@@ -145,10 +168,11 @@ const handleEndGame = (condition: string) => {
     resultsDisplay.innerText = "You Lose";
   }
 
-  //Clear intervals for gamestate, time and playermovement
+  //Clear intervals for gamestate, time, gems and player movement
   clearInterval(gameCounter);
   clearInterval(timeCounter);
   clearInterval(moveCounter);
+  clearInterval(gemCounter);
 
   //Remove event listeners from arrows to stop movement
   arrowButtons.forEach((arrow) => {
@@ -167,39 +191,28 @@ const handleEndGame = (condition: string) => {
 
 //Restart game
 const handleRestartGame = () => {
+  //Reset Score and Time
   score = 0;
-  timeLeft = 61;
+  timeLeft = 60;
+  //Set power indicators to be on
   powerIndicatorTop.style.backgroundColor = "#02FF62";
   powerIndicatorBottom.style.backgroundColor = "#ffffff";
+  //Remove results display and star/restart button
   resultsDisplay.style.display = "none";
   startButton.style.display = "none";
+  //Reset player position
   player.style.top = "0";
   player.style.left = "0";
   horizontalMovement = 0;
   verticalMovement = 0;
+  //Add event listeners to arrows
   handleAddEventListeners();
-  handleSpawnGems(3);
-  console.log(moveSpeed);
-};
-
-const handleSpawnGems = (count: number) => {
-  for (let i: number = 0; i < count; i++) {
-    const randNum1: number = Math.floor(
-      Math.random() * (screen.width - 50) + 0
-    );
-    const randNum2: number = Math.floor(Math.random() * (300 - 0) + 0);
-    console.log(randNum1);
-
-    let gem = document.createElement("img");
-    gem.src = "src/Images/gem-placeholder.png";
-    gem.alt = "gem";
-    gem.className = "game-display__gem";
-    gem.id = "gem1";
-    gem.style.left = `${randNum1}px`;
-    gem.style.top = `${randNum2}px`;
-    gameplayArea.append(gem);
-  }
-  gems = document.querySelectorAll(".game-display__gem");
+  //Remove any exising gems and begin spawning new ones
+  document.querySelectorAll(".game-display__gem").forEach((gem) => {
+    gem.remove();
+    score -= 1;
+  });
+  handleSpawnGems();
 };
 
 //////////Player Movement Functions//////////
@@ -268,4 +281,3 @@ const handleAddEventListeners = () => {
 //Add listener to start/restart button
 startButton.addEventListener("click", handleStartGame);
 //Add listener to document
-//document.addEventListener("DOMContentLoaded", updateTime);
