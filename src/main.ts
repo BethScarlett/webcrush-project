@@ -1,6 +1,8 @@
 import "./Styling/main.scss";
 import playerOne from "./Types & Objects/objects";
 
+const imgURL = new URL("/gem-placeholder.png", import.meta.url).href;
+
 /////////Set up elements for DOM manipulation//////////
 //Grab power display elements
 const powerIndicatorTop =
@@ -111,7 +113,7 @@ const handleSpawnGems = () => {
     const randNum2: number = Math.floor(Math.random() * (400 - 0) + 45);
 
     let gem = document.createElement("img");
-    gem.src = "src/Images/gem-placeholder.png";
+    gem.src = imgURL;
     gem.alt = "gem";
     gem.className = "game-display__gem";
     gem.id = "gem1";
