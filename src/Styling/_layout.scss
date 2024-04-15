@@ -172,11 +172,11 @@ body {
   color: black;
   font-size: 24px;
 
-  .game-footer__link {
+  &__link {
     display: flex;
     flex-direction: column;
 
-    .game-footer__link--image {
+    &--image {
       width: 50%;
       align-self: center;
       margin-top: 10px;
